@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+var wsUri = "ws://localhost:4567/GetInfor"; 
+var output;  
+function init() {
+	output = document.getElementById("output");
+	CallWebSocket(); 
+	$("#imageInfor").html("Resoluton: Undefine");
+	$("#divFrames").html("Frames: N/A frames/s");
+	
+ } 
+ function writeToScreen(message) { 
+    
+	$("#output").html(message);
+ } 
+ function CallWebSocket() {
+    var ip = $("#ipAddress").val();
+	var wsPath =  wsUri.replace("localhost", ip); 
+	
+	websocket = new WebSocket(wsPath); 
+	websocket.onopen = function(evt) { onOpen(evt) }; 
+	websocket.onclose = function(evt) { 
+	onClose(evt) }; 
+	websocket.onmessage = function(evt) { onMessage(evt) }; 
+	websocket.onerror = function(evt) {
+	onError(evt) };
+ } 
+ function onOpen(evt) {
+	writeToScreen("Status: Connected"); 
+	doSend("getInforImage"); 
+ }  
+ function onClose(evt) { 
+	writeToScreen("Status: Disconnected"); 
+ }  
+ 
+  function onMessage(evt) 
+ {  
+	var imageObj = JSON.parse(evt.data);
+	$("#imageInfor").html("Resolution :" + imageObj.ImageSize);
+	$("#divFrames").html( "Rate: "+ imageObj.NumOfFrame + " frames/ms");
+ }  
+ function onError(evt) {
+	writeToScreen('<span style="color: red;">Error:</span> ' + evt.data);
+ }  
+ function doSend(message) {
+	websocket.send(message);  
+	} 
+ 
+$(document).ready(function(){
+  
+   init();
+   doSend("getInforImage"); 
+   $( "#btnConnect" ).click(function() {
+       var url = "http://"+ $("#ipAddress").val() + ":8181/";
+		$("#imageConet").attr("src", url);
+		CallWebSocket();
+		return false;
+	});
+    
+	
+});
+</script>
+</head>
+<body>
+<h2>ConetWebImage</h2>  
+<div>
+Ip Camera:<input type="text" id="ipAddress" value="127.0.0.1">
+<input type="submit" id="btnConnect" value="Connect">
+</div>
+<div id="output"></div>
+<div id="imageInfor"></div>
+<div id="divFrames"></div>
+<div>
+<img id="imageConet" alt="http://127.0.0.1:8181/" src="http://127.0.0.1:8181/" height="436" width="581">
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+var wsUri = "ws://localhost:8181/GetImage"; 
+var output;  
+function init() {
+	output = document.getElementById("output"); 
+	testWebSocket(); 
+	$("#imageInfor").html("Image Size: Undefine");
+	$("#timeGetImage").html("N/A ms/ frame");
+	
+ } 
+ 
+ function changeImageSize() {
+    var imageSzie = document.getElementById("cmbImageSize").value;
+	//alert(imageSzie);
+   // document.getElementById("demo").innerHTML = "You selected: " + x;
+}
+ function testWebSocket() {
+    var ip = $("#ipAddress").val();
+	var wsPath =  wsUri.replace("localhost", ip); 
+	//websocket = new WebSocket(wsUri);
+	websocket = new WebSocket(wsPath); 
+	websocket.onopen = function(evt) { onOpen(evt) }; 
+	websocket.onclose = function(evt) { 
+	onClose(evt) }; 
+	websocket.onmessage = function(evt) { onMessage(evt) }; 
+	websocket.onerror = function(evt) {
+	onError(evt) };
+ } 
+ function onOpen(evt) {
+	writeToScreen("CONNECTED"); 
+	//doSend("123"); 
+ }  
+ function onClose(evt) { 
+	writeToScreen("DISCONNECTED"); 
+ }  
+ var idImage ="000";
+ function onMessage(evt) 
+ {  
+    var a = performance.now();
+    var $img = $("<img/>"); 
+	var imageObj = JSON.parse(evt.data);
+	$("#imageInfor").html("Image size:" + imageObj.ImageSize);
+    $img.attr("src", "data:image/png;base64," + imageObj.DataImage);
+    $("#wrapper").html($img);
+	var b = performance.now();
+	var totalTime = b-a;
+	var frameRates = (1000/totalTime)
+	$("#timeGetImage").html( "Rate:"+ frameRates.toFixed(2)+ "frames/ms");
+	//doSend(idImage);
+	
+ }  
+ function onError(evt) {
+	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+ }  
+ function doSend(message) {
+	writeToScreen("Status: Receiving Images"); 
+	websocket.send(message);  
+	} 
+ function writeToScreen(message) { 
+    
+	$("#output").html(message);
+ } 
+ 
+$(document).ready(function(){
+  
+   
+   $( "#btnConnect" ).click(function() {
+		init();
+		return false;
+	});
+    
+	$( "#btnClose" ).click(function() {
+		websocket.close();
+		return false;
+	});
+});
+</script>
+</head>
+<body>
+<h2>ConetWebImage</h2>  
+Ip Address:<input type="text" id="ipAddress" value="127.0.0.1">
+<select id="cmbImageSize" onchange="changeImageSize()">
+  <option value="0">320x240</option>
+  <option value="1">480x320</option>
+  <option value="2">640x480</option>
+</select>
+<input type="submit" id="btnConnect" value="Connect">
+<input type="submit" id="btnClose" value="Close">
+<div id="output"></div>
+<div id="imageInfor"></div>
+<div id="timeGetImage"></div>
+
+</br>
+<div id="wrapper"  style="width:400px; height:400px;">
+</div>
+</body>
+</html>

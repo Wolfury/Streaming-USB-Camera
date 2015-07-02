@@ -1,0 +1,16 @@
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\ConetImage_Aforge.exe.config
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\ConetImage_Aforge.exe
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\ConetImage_Aforge.pdb
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\MainWindow.baml
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\MainWindow.g.cs
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\App.g.cs
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\ConetImage_Aforge_MarkupCompile.cache
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\ConetImage_Aforge.g.resources
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\MyStreamingServer.Properties.Resources.resources
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\obj\Release\StreamingImage_Aforge.csproj.GenerateResource.Cache
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\ConetImage_Aforge.exe
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\ConetImage_Aforge.pdb
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\AForge.Controls.dll
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\AForge.dll
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\AForge.Video.DirectShow.dll
+D:\Temp\StreamingImage_Aforge\ConetImage_Aforge\bin\Release\AForge.Video.dll
